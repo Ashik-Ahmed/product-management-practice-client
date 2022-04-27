@@ -8,10 +8,9 @@ const AddProduct = () => {
         const price = e.target.price.value;
 
         const product = { name, price };
-        console.log(product);
 
         //send data to the server
-        fetch('http://localhost:5000/add', {
+        fetch('https://morning-beyond-74670.herokuapp.com/add', {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -19,7 +18,12 @@ const AddProduct = () => {
             body: JSON.stringify(product)
         })
             .then(res => res.json())
-            .then(data => console.log("success", data))
+            .then(data => {
+                if (data.acknowledged) {
+                    alert("Product added successfully");
+                    e.target.reset();
+                }
+            })
     }
 
     return (
